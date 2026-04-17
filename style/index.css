@@ -10,8 +10,32 @@
     text-align: center;
     padding: 30px 20px;
 }
+.photo-card {
+    position: relative; 
 
-body {
+    background-color: white;
+    padding: 15px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+    width: 300px;
+}
+.card-image {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1;
+}
+.pin {
+    width: 20px;
+
+    position: absolute;
+    top: -5px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+main {
     background-image: url('../img/cork.png');
     background-size: cover;
     background-position: center;
