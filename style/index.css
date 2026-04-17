@@ -3,11 +3,18 @@
     margin: 0;
     box-sizing: border-box;
 }
+.page-header {
+    background-image: url('../img/wall.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 30px 20px;
+}
 
 body {
-    background-color: #f0f0f0;
+    background-image: url('../img/cork.png');
+    background-size: cover;
+    background-position: center;
+    padding: 40px 0;
 
-}
-.page-header h1 {
-    
 }
