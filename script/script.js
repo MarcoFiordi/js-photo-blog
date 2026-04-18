@@ -6,6 +6,6 @@ const listaFotoElem = document.querySelector('#photo-list');
 const loadingMsgElem = document.querySelector('#loadingMsg');
 const errorMsgElem = document.querySelector('#errorMsg');
 
-console.log(listaFotoElem);
-console.log(loadingMsgElem);
-console.log(errorMsgElem);
+if (loadingMsgElem !== null){
+    loadingMsgElem.textContent = 'Caricamento...';
+}
