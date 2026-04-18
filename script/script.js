@@ -1,4 +1,4 @@
-// @ts-check
+
 'use strict';
 
 const API_URL = 'https://lanciweb.github.io/demo/api/pictures/';
@@ -34,4 +34,7 @@ function stampaCard(fotoArray) {
     if (listaFotoElem === null) {
         return;
     }
+
+    // creo una variabile vuota dove salverò tutto l'HTML delle card
+    let markupFinale = '';
 }
