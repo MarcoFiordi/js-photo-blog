@@ -43,7 +43,7 @@ function stampaCard(fotoArray) {
 
         // Per ogni foto aggiungo una card alla stringa HTML
         markupFinale += `
-            <div class="col-12 col-md-6 col-lg-4>
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="photo-card">
                 
                     <!-- pin sopra la card -->
@@ -62,4 +62,7 @@ function stampaCard(fotoArray) {
         `;
 
     }
+
+    // inserisco tutto l'HTML generato dentro al contenitore
+    listaFotoElem.innerHTML = markupFinale;
 }
