@@ -26,6 +26,12 @@ fetch(API_URL)
     // Se si presenta qualche errore, lo stampo in console
     .catch((error) => {
         console.error(error);
+    })
+    // Alla fine rimuovo il messaggio di caricamento
+    .finally(() =>{
+        if (loadingMsgElem !== null){
+            loadingMsgElem.textContent = '';
+        }
     });
 
 // funzione che riceve un array di foto e genera le card nel DOM
