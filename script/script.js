@@ -1,15 +1,18 @@
 // @ts-check
 'use strict';
 
-const API_URL = 'https://lanciweb.github.io/demo/api/pictures/'
-// Seleziono gli elementi del Dom
+const API_URL = 'https://lanciweb.github.io/demo/api/pictures/';
+
+// Seleziono gli elementi del DOM
 const listaFotoElem = document.querySelector('#photo-list');
 const loadingMsgElem = document.querySelector('#loadingMsg');
 const errorMsgElem = document.querySelector('#errorMsg');
 
+// Mostro il messaggio di caricamento
 if (loadingMsgElem !== null) {
     loadingMsgElem.textContent = 'Caricamento...';
 }
+
 // Chiamata API
 fetch(API_URL)
     // Quando arriva la risposta la trasformo in JSON
@@ -24,5 +27,3 @@ fetch(API_URL)
     .catch((error) => {
         console.error(error);
     });
-
-    
