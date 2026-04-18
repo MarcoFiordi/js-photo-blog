@@ -39,7 +39,27 @@ function stampaCard(fotoArray) {
     let markupFinale = '';
 
     // ciclo tutte le foto ricevute dall'API
-    for (const foto of fotoArray){
-        
+    for (const foto of fotoArray) {
+
+        // Per ogni foto aggiungo una card alla stringa HTML
+        markupFinale += `
+            <div class="col-12 col-md-6 col-lg-4>
+                <div class="photo-card">
+                
+                    <!-- pin sopra la card -->
+                    <img src="./img/pin.svg" alt="pin rosso" class="pin">
+                
+                    <!-- immagine della foto -->
+                    <img src="${foto.url}" alt="${foto.title}" class="card-image">
+                
+                    <!-- testo -->
+                    <div class="card-text">
+                        <p class="date">${foto.date}</p>
+                        <h2 class="title">${foto.title}</h2>
+                    </div>
+                </div>
+            </div>
+        `;
+
     }
 }
