@@ -27,3 +27,11 @@ fetch(API_URL)
     .catch((error) => {
         console.error(error);
     });
+
+// funzione che riceve un array di foto e genera le card nel DOM
+function stampaCard(fotoArray) {
+    // se il contenitore non esiste, esco dalla funzione
+    if (listaFotoElem === null) {
+        return;
+    }
+}
