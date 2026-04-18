@@ -37,4 +37,9 @@ function stampaCard(fotoArray) {
 
     // creo una variabile vuota dove salverò tutto l'HTML delle card
     let markupFinale = '';
+
+    // ciclo tutte le foto ricevute dall'API
+    for (const foto of fotoArray){
+        
+    }
 }
