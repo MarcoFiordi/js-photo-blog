@@ -8,7 +8,7 @@ const listaFotoElem = document.querySelector('#photo-list');
 const loadingMsgElem = document.querySelector('#loadingMsg');
 const errorMsgElem = document.querySelector('#errorMsg');
 const overlayElem = document.querySelector('#overlay');
-const overlayImageElem = document.querySelector('#overlay-image');
+const overlayImageElem = document.querySelector('#overlay-immagine');
 const closeOverlayElem = document.querySelector('#close-overlay');
 
 // Mostro il messaggio di caricamento
@@ -38,7 +38,7 @@ fetch(API_URL)
     });
 
 // funzione che apre l'overlay mostrando l'immagine cliccata
-function openOverlay(imagUrl, imageTitle) {
+function openOverlay(imageUrl, imageTitle) {
 
     // controllo di sicurezza: verifico che gli elementi esistano nel DOM
     // se uno dei due è null, esco dalla funzione per evitare errori
@@ -95,10 +95,23 @@ function stampaCard(fotoArray) {
     const cardImageElems = document.querySelectorAll('.card-image');
 
 
-    for (const cardImageElem of cardImageElems) {
-        cardImageElem.addEventListener('click', function () {
-            console.log('immagine cliccata');
+    // 3. Uso il forEach per collegare ogni immagine ai suoi dati
+    fotoArray.forEach((foto, i) => {
+        cardImageElems[i].addEventListener('click', function () {
+            
+            openOverlay(foto.url, foto.title);
         });
-    }
+    });
 
+}
+
+
+// Gestione della chiusura dell'overlay (requisito: solo tramite bottone)
+if (closeOverlayElem !== null) {
+    closeOverlayElem.addEventListener('click', function() {
+        // Aggiungiamo la classe d-none per nascondere tutto
+        if (overlayElem !== null) {
+            overlayElem.classList.add('d-none');
+        }
+    });
 }
