@@ -17,21 +17,23 @@
     font-weight: bold;
     font-size: 4rem;
     text-align: center;
+}
 
+main {
+    background-image: url('../img/cork.png');
+    background-size: cover;
+    padding: 40px 0;
 }
 
 .photo-card {
     position: relative;
-
     background-color: white;
     padding: 15px;
-
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-
     width: 300px;
     transition: transform 0.3s ease;
-    
 }
+
 .photo-card:hover {
     transform: rotate(15deg);
 }
@@ -44,13 +46,11 @@
 
 .pin {
     width: 20px;
-
     position: absolute;
     top: -5px;
     left: 50%;
-
     transform: translateX(-50%);
-    
+    transition: opacity 0.3s ease;
 }
 
 .photo-card:hover .pin {
@@ -69,74 +69,36 @@
     color: #666;
 }
 
-main {
-    background-image: url('../img/cork.png');
-    background-size: cover;
-    padding: 40px 0;
-
-}
-
 #overlay {
-<<<<<<< HEAD
-    
-=======
-    /* Fondamentale: lo "stacchiamo" dal flusso della pagina */
->>>>>>> 020776735e66a0ca7270384a130a172e94bb0548
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
-    
-<<<<<<< HEAD
-    
     width: 100%;
-    height: 100%;
-    
-    
-    background-color: rgba(0, 0, 0, 0.8); 
-    
-    
-=======
-    /* Deve coprire tutto lo schermo */
-    width: 100%;
-    height: 100%;
-    
-    /* Lo spazio trasparente (nero all'80%) */
-    background-color: rgba(0, 0, 0, 0.8); 
-    
-    /* Centriamo il contenuto (bottone + immagine) */
->>>>>>> 020776735e66a0ca7270384a130a172e94bb0548
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-<<<<<<< HEAD
-    
-    z-index: 10;
-}
-
-
-#overlay-immagine {
-    max-width: 85%;
-    max-height: 80%;
-    border: 8px solid white; 
-}
-
-
-=======
-    /* Deve stare sopra a tutto (Bootstrap usa z-index alti, noi mettiamo 9999) */
     z-index: 9999;
 }
 
-/* Regola per l'immagine dentro l'overlay */
 #overlay-immagine {
     max-width: 85%;
     max-height: 80%;
-    border: 8px solid white; /* Effetto cornice */
+    border: 8px solid white;
 }
 
-/* Nascondiamo l'overlay quando ha la classe d-none */
->>>>>>> 020776735e66a0ca7270384a130a172e94bb0548
+#close-overlay {
+    margin-bottom: 20px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 #overlay.d-none {
     display: none;
 }
