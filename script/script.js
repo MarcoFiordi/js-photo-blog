@@ -94,10 +94,23 @@ function stampaCard(fotoArray) {
     const cardImageElems = document.querySelectorAll('.card-image');
 
 
-    for (const cardImageElem of cardImageElems) {
-        cardImageElem.addEventListener('click', function () {
-            console.log('immagine cliccata');
+    // 3. Uso il forEach per collegare ogni immagine ai suoi dati
+    fotoArray.forEach((foto, i) => {
+        cardImageElems[i].addEventListener('click', function () {
+            
+            openOverlay(foto.url, foto.title);
         });
-    }
+    });
 
+}
+
+
+// Gestione della chiusura dell'overlay (requisito: solo tramite bottone)
+if (closeOverlayElem !== null) {
+    closeOverlayElem.addEventListener('click', function() {
+        // Aggiungiamo la classe d-none per nascondere tutto
+        if (overlayElem !== null) {
+            overlayElem.classList.add('d-none');
+        }
+    });
 }
