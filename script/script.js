@@ -7,6 +7,9 @@ const API_URL = 'https://lanciweb.github.io/demo/api/pictures/';
 const listaFotoElem = document.querySelector('#photo-list');
 const loadingMsgElem = document.querySelector('#loadingMsg');
 const errorMsgElem = document.querySelector('#errorMsg');
+const overlayElem = document.querySelector('#overlay');
+const overlayImageElem = document.querySelector('#overlay-image');
+const closeOverlayElem = document.querySelector('#close-overlay');
 
 // Mostro il messaggio di caricamento
 if (loadingMsgElem !== null) {
@@ -33,6 +36,23 @@ fetch(API_URL)
             loadingMsgElem.textContent = '';
         }
     });
+
+// funzione che apre l'overlay mostrando l'immagine cliccata
+function openOverlay(imagUrl, imageTitle){
+
+    // controllo di sicurezza: verifico che gli elementi esistano nel DOM
+    // se uno dei due è null, esco dalla funzione per evitare errori
+    if (overlayElem === null || overlayImageElem === null){
+        return;
+    }
+
+    // imposto il percorso dell'immagine grande
+    overlayImageElem.src = imageUrl;
+    // imposto il testo alternativo (utile per accessibilità)
+    overlayImageElem.alt = imageTitle;
+    // rimuovo la classe 'd-none' per rendere visibile l'overlay
+    overlayElem.classList.remove('d-none');
+}
 
 // funzione che riceve un array di foto e genera le card nel DOM
 function stampaCard(fotoArray) {
