@@ -1,116 +1,188 @@
 'use strict';
+// attiva la modalità strict → evita errori comuni
 
+// URL dell’API da cui recupero le immagini
 const API_URL = 'https://lanciweb.github.io/demo/api/pictures/';
 
-// Seleziono gli elementi del DOM
+
+// ==========================
+// SELEZIONE ELEMENTI DOM
+// ==========================
+
+// contenitore delle card
 const listaFotoElem = document.querySelector('#photo-list');
+
+// messaggio di caricamento
 const loadingMsgElem = document.querySelector('#loadingMsg');
+
+// messaggio di errore
 const errorMsgElem = document.querySelector('#errorMsg');
+
+// overlay fullscreen
 const overlayElem = document.querySelector('#overlay');
+
+// immagine dentro overlay
 const overlayImageElem = document.querySelector('#overlay-immagine');
+
+// bottone chiusura overlay
 const closeOverlayElem = document.querySelector('#close-overlay');
 
-// Mostro il messaggio di caricamento
+
+// ==========================
+// MESSAGGIO DI CARICAMENTO
+// ==========================
+
+// mostro il loading prima della chiamata API
 if (loadingMsgElem !== null) {
     loadingMsgElem.textContent = 'Caricamento...';
 }
 
-// Chiamata API
+
+// ==========================
+// CHIAMATA API
+// ==========================
+
 fetch(API_URL)
-    // Quando arriva la risposta la trasformo in JSON
+
+    // converto la risposta in JSON
     .then((response) => {
         return response.json();
     })
-    // Quando arrivano i dati veri, li passo alla funzione che crea le card
+
+    // quando arrivano i dati, creo le card
     .then((fotoArray) => {
         stampaCard(fotoArray);
     })
-    // Se si presenta qualche errore, lo stampo in console
+
+    // gestione errore
     .catch((error) => {
         console.error(error);
+
+        // messaggio visibile all’utente
+        if (errorMsgElem !== null) {
+            errorMsgElem.textContent = 'Errore nel caricamento delle foto';
+        }
     })
-    // Alla fine rimuovo il messaggio di caricamento
+
+    // rimuovo il loading in ogni caso
     .finally(() => {
         if (loadingMsgElem !== null) {
             loadingMsgElem.textContent = '';
         }
     });
 
-// funzione che apre l'overlay mostrando l'immagine cliccata
+
+// ==========================
+// FUNZIONE APERTURA OVERLAY
+// ==========================
+
+// apre l’overlay mostrando l’immagine cliccata
 function openOverlay(imageUrl, imageTitle) {
 
-    // controllo di sicurezza: verifico che gli elementi esistano nel DOM
-    // se uno dei due è null, esco dalla funzione per evitare errori
+    // controllo di sicurezza
     if (overlayElem === null || overlayImageElem === null) {
         return;
     }
 
-    // imposto il percorso dell'immagine grande
+    // imposto immagine
     overlayImageElem.src = imageUrl;
-    // imposto il testo alternativo (utile per accessibilità)
+
+    // imposto descrizione
     overlayImageElem.alt = imageTitle;
-    // rimuovo la classe 'd-none' per rendere visibile l'overlay
+
+    // mostro overlay
     overlayElem.classList.remove('d-none');
 }
 
-// funzione che riceve un array di foto e genera le card nel DOM
+
+// ==========================
+// FUNZIONE CHIUSURA OVERLAY
+// ==========================
+
+// chiude l’overlay
+function closeOverlay() {
+
+    // nascondo overlay
+    if (overlayElem !== null) {
+        overlayElem.classList.add('d-none');
+    }
+
+    // pulisco immagine
+    if (overlayImageElem !== null) {
+        overlayImageElem.src = '';
+        overlayImageElem.alt = '';
+    }
+}
+
+
+// ==========================
+// FUNZIONE CREAZIONE CARD
+// ==========================
+
+// genera le card a partire dai dati API
 function stampaCard(fotoArray) {
-    // se il contenitore non esiste, esco dalla funzione
+
+    // controllo contenitore
     if (listaFotoElem === null) {
         return;
     }
 
-    // creo una variabile vuota dove salverò tutto l'HTML delle card
+    // stringa che conterrà tutto il markup
     let markupFinale = '';
 
-    // ciclo tutte le foto ricevute dall'API
+    // ciclo tutte le foto
     for (const foto of fotoArray) {
 
-        // Per ogni foto aggiungo una card alla stringa HTML
+        // costruisco HTML della card
         markupFinale += `
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="photo-card">
-                
-                    <!-- pin sopra la card -->
+
+                    <!-- pin -->
                     <img src="./img/pin.svg" alt="pin rosso" class="pin">
-                
-                    <!-- immagine della foto -->
+
+                    <!-- immagine -->
                     <img src="${foto.url}" alt="${foto.title}" class="card-image">
-                
+
                     <!-- testo -->
                     <div class="card-text">
                         <p class="date">${foto.date}</p>
                         <h2 class="title">${foto.title}</h2>
                     </div>
+
                 </div>
             </div>
         `;
-
     }
 
-    // inserisco tutto l'HTML generato dentro al contenitore
+    // inserisco tutto nel DOM
     listaFotoElem.innerHTML = markupFinale;
 
-    const cardImageElems = document.querySelectorAll('.card-image');
 
+    // ==========================
+    // EVENTI CLICK
+    // ==========================
 
-    // 3. Uso il forEach per collegare ogni immagine ai suoi dati
-    fotoArray.forEach((foto, i) => {
+    // seleziono immagini appena create
+    const cardImageElems = listaFotoElem.querySelectorAll('.card-image');
+
+    // aggiungo listener click
+    for (let i = 0; i < cardImageElems.length; i++) {
+
         cardImageElems[i].addEventListener('click', function () {
-            
-            openOverlay(foto.url, foto.title);
-        });
-    });
 
+            // apro overlay con dati corretti
+            openOverlay(fotoArray[i].url, fotoArray[i].title);
+        });
+    }
 }
 
 
-// Gestione della chiusura dell'overlay (requisito: solo tramite bottone)
+// ==========================
+// EVENTO CHIUSURA OVERLAY
+// ==========================
+
+// collego bottone alla funzione di chiusura
 if (closeOverlayElem !== null) {
-    closeOverlayElem.addEventListener('click', function() {
-        // Aggiungiamo la classe d-none per nascondere tutto
-        if (overlayElem !== null) {
-            overlayElem.classList.add('d-none');
-        }
-    });
+    closeOverlayElem.addEventListener('click', closeOverlay);
 }
