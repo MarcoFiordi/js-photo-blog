@@ -31,18 +31,18 @@ fetch(API_URL)
         console.error(error);
     })
     // Alla fine rimuovo il messaggio di caricamento
-    .finally(() =>{
-        if (loadingMsgElem !== null){
+    .finally(() => {
+        if (loadingMsgElem !== null) {
             loadingMsgElem.textContent = '';
         }
     });
 
 // funzione che apre l'overlay mostrando l'immagine cliccata
-function openOverlay(imagUrl, imageTitle){
+function openOverlay(imagUrl, imageTitle) {
 
     // controllo di sicurezza: verifico che gli elementi esistano nel DOM
     // se uno dei due è null, esco dalla funzione per evitare errori
-    if (overlayElem === null || overlayImageElem === null){
+    if (overlayElem === null || overlayImageElem === null) {
         return;
     }
 
@@ -91,4 +91,14 @@ function stampaCard(fotoArray) {
 
     // inserisco tutto l'HTML generato dentro al contenitore
     listaFotoElem.innerHTML = markupFinale;
+
+    const cardImageElems = document.querySelectorAll('.card-image');
+
+
+    for (const cardImageElem of cardImageElems) {
+        cardImageElem.addEventListener('click', function () {
+            console.log('immagine cliccata');
+        });
+    }
+
 }
